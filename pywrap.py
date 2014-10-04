@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import sys, time, traceback, pprint
 
 sys.stdout.close()
