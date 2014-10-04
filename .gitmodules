@@ -1,0 +1,3 @@
+[submodule "CountJump"]
+	path = CountJump
+	url = https://github.com/vim-scripts/CountJump.git
