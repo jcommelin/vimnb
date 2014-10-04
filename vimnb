@@ -1,0 +1,19 @@
+#!/bin/bash
+
+INPUT_FILE="$1"
+INPUT_FILE_BASE=$(basename "${INPUT_FILE}")
+
+if [ -z "$VIMNB_TMP_FILE_PATH" ]; then
+	VIMNB_TMP_FILE_PATH=/dev/shm/
+fi
+PREFIX=repl
+TMP_FILE="${VIMNB_TMP_FILE_PATH}${PREFIX}_${INPUT_FILE_BASE}"
+
+mkfifo $TMP_FILE.in
+pywrap.py <$TMP_FILE.in >$TMP_FILE.out &
+PYWRAP_PID=$!
+
+vim "$INPUT_FILE"
+
+kill $PYWRAP_PID 2>/dev/null && rm $TMP_FILE.in
+
