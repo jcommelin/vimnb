@@ -2,7 +2,7 @@
 
 # Inspired by the pipe2eval plugin for vim
 
-INPUT_FILE="$2"
+INPUT_FILE="$1"
 INPUT_FILE_BASE=$(basename "${INPUT_FILE}")
 
 if [ -z "$VIMNB_TMP_FILE_PATH" ]; then
