@@ -17,3 +17,5 @@ while True:
         sys.stdout.close()
     else:
         time.sleep(0.1)
+
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
