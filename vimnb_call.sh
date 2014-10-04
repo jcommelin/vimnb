@@ -12,6 +12,7 @@ PREFIX=repl
 TMP_FILE="${VIMNB_TMP_FILE_PATH}${PREFIX}_${INPUT_FILE_BASE}"
 
 tee $TMP_FILE.new
+echo "# Compiling code block"
 
 tail -1 $TMP_FILE.new | grep -q '^\s*\(return\|import\|from\|print\|pprint\)'
 
@@ -23,8 +24,11 @@ else
 \pprint.pprint(____)\
 \____/' > $TMP_FILE.in
 fi
-sleep 0.1
+echo "$TMP_FILE" > $TMP_FILE.ipc
+while [ ! -r $TMP_FILE.out ]
+do
+	sleep 0.1
+done
 cat $TMP_FILE.out | sed -e 's/^\(.*\)$/# \1/'
-#sleep 0.1 && echo -n "" > $TMP_FILE.out &
-cat /dev/null > $TMP_FILE.out
-#rm $TMP_FILE.out
+rm $TMP_FILE.in
+rm $TMP_FILE.out

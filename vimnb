@@ -9,11 +9,12 @@ fi
 PREFIX=repl
 TMP_FILE="${VIMNB_TMP_FILE_PATH}${PREFIX}_${INPUT_FILE_BASE}"
 
-mkfifo $TMP_FILE.in
-pywrap.py <$TMP_FILE.in >$TMP_FILE.out &
+mkfifo $TMP_FILE.ipc
+pywrap.py <$TMP_FILE.ipc &
 PYWRAP_PID=$!
 
 vim "$INPUT_FILE"
 
-kill $PYWRAP_PID 2>/dev/null && rm $TMP_FILE.in
+kill $PYWRAP_PID &>/dev/null
+rm $TMP_FILE.ipc
 

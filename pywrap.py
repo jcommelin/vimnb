@@ -1,12 +1,19 @@
 #!/usr/bin/python
 import sys, time, traceback, pprint
+
+sys.stdout.close()
+
 while True:
     line = sys.stdin.readline()
     if line:
+        i = open(line[:-1] + ".in", "r")
+        sys.stdout = open(line[:-1] + ".out", "w")
         try:
-            exec(line)
+            for l in i:
+                exec(l)
         except:
             traceback.print_exc(file=sys.stdout)
-        sys.stdout.flush()
+        i.close()
+        sys.stdout.close()
     else:
         time.sleep(0.1)
