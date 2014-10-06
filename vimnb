@@ -1,22 +1,35 @@
 #!/bin/bash
 
+# The one and only hardcoded path. Configure to your liking
 FILEDIR="${HOME}/data/vimnb"
 
+# Parse the filename
 INPUT_FILE="$1"
 INPUT_FILE_BASE=$(basename "${INPUT_FILE}")
 
+# Users may specify their prefered directory for temporary files
 if [ -z "$VIMNB_TMP_FILE_PATH" ]; then
 	VIMNB_TMP_FILE_PATH=/dev/shm/
 fi
-PREFIX=repl
+
+# Prefix for temporary files
+PREFIX=vimnb
+
+# Basename for the temporary files
 TMP_FILE="${VIMNB_TMP_FILE_PATH}${PREFIX}_${INPUT_FILE_BASE}"
 
+# Pipe for inter process communication between vim and python
 mkfifo $TMP_FILE.ipc
+
+# Start the REPL (wrapper around python), with the pipe as stdin
 $FILEDIR/pywrap.py <$TMP_FILE.ipc &
+# Save its PID, to kill it later
 PYWRAP_PID=$!
 
+# Drop into vim, with the custom .vimrc, to load plugins and keyboard shortcuts
 vim -u $FILEDIR/vimnb.vimrc "$INPUT_FILE"
 
-kill $PYWRAP_PID &>/dev/null
+# Kill the REPL, remove the pipe
+kill $PYWRAP_PID
 rm $TMP_FILE.ipc
 
