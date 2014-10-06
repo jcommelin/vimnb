@@ -48,5 +48,7 @@ endif
 
 function VimnbColors()
 	syn match vimnbOutput "#> .*"
+	syn match vimnbError "#> !.*"
 	hi vimnbOutput ctermfg=darkyellow
+	hi vimnbError ctermfg=darkred
 endfunction
