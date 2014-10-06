@@ -5,15 +5,15 @@ endif
 source $HOME/.vimrc
 
 " Communication with the Python REPL
-source $HOME/data/vimnb/vimnb.vim
+execute 'source ' . expand('<sfile>:p:h') . '/vimnb.vim'
 
 " Plugin for textobject commands
-source $HOME/data/vimnb/CountJump/autoload/CountJump.vim
-source $HOME/data/vimnb/CountJump/autoload/CountJump/Mappings.vim
-source $HOME/data/vimnb/CountJump/autoload/CountJump/Motion.vim
-source $HOME/data/vimnb/CountJump/autoload/CountJump/Region.vim
-source $HOME/data/vimnb/CountJump/autoload/CountJump/TextObject.vim
-source $HOME/data/vimnb/CountJump/autoload/CountJump/Region/TextObject.vim
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump.vim'
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump/Mappings.vim'
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump/Motion.vim'
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump/Region.vim'
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump/TextObject.vim'
+execute 'source ' . expand('<sfile>:p:h') . '/CountJump/autoload/CountJump/Region/TextObject.vim'
 
 " Textobjects
 call CountJump#Motion#MakeBracketMotion( '<buffer>', 'b', 'B', '#{{{', '#}}}', 0 )
