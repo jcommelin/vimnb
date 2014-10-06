@@ -13,11 +13,7 @@ source $HOME/data/vimnb/CountJump/autoload/CountJump/TextObject.vim
 source $HOME/data/vimnb/CountJump/autoload/CountJump/Region/TextObject.vim
 
 call CountJump#Motion#MakeBracketMotion( '<buffer>', 'b', 'B', '#{{{', '#}}}', 0 )
-call CountJump#Region#TextObject#Make( '<buffer>', 'c', 'i', 'V', '^#> [^-}]', 1 )
-call CountJump#Region#TextObject#Make( '<buffer>', 'c', 'a', 'V', '^#> ', 1 )
-" The above doesn't work. Replace it by a
-" CountJump#TextObject#MakeWithJumpFunctions  with suitable jump to #> ---------
-call CountJump#Region#TextObject#Make( '<buffer>', 'b', 'i', 'V', '^#> ', 0 )
+call CountJump#Region#TextObject#Make( '<buffer>', 'o', 'i', 'V', '^#> [^}]', 1 )
 
 function Jump_to_begin_codeblock(count, isInner)
 	normal j[b
@@ -25,10 +21,14 @@ function Jump_to_begin_codeblock(count, isInner)
 endfunction
 
 function Jump_to_end_codeblock(count, isInner)
-	normal k]B
-	return [line('.'), '$']
+	if a:isInner == 1
+		let match = search('#> -\{55\}\|#}}}', 'cs')
+	else
+		let match = search('#}}}', 'cs')
+	endif
+	return [match, '$']
 endfunction
 
-call CountJump#TextObject#MakeWithJumpFunctions('<buffer>', 'b', 'a', 'V', 'Jump_to_begin_codeblock', 'Jump_to_end_codeblock')
+call CountJump#TextObject#MakeWithJumpFunctions('<buffer>', 'b', 'ai', 'V', 'Jump_to_begin_codeblock', 'Jump_to_end_codeblock')
 
 nmap <C-M>b [b]Bo<CR>#{{{<CR><CR>#}}}<ESC>0k
