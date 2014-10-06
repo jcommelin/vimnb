@@ -2,9 +2,12 @@
 if filereadable("/etc/vim/vimrc")
   source /etc/vim/vimrc
 endif
-
 source $HOME/.vimrc
+
+" Communication with the Python REPL
 source $HOME/data/vimnb/vimnb.vim
+
+" Plugin for textobject commands
 source $HOME/data/vimnb/CountJump/autoload/CountJump.vim
 source $HOME/data/vimnb/CountJump/autoload/CountJump/Mappings.vim
 source $HOME/data/vimnb/CountJump/autoload/CountJump/Motion.vim
@@ -12,6 +15,7 @@ source $HOME/data/vimnb/CountJump/autoload/CountJump/Region.vim
 source $HOME/data/vimnb/CountJump/autoload/CountJump/TextObject.vim
 source $HOME/data/vimnb/CountJump/autoload/CountJump/Region/TextObject.vim
 
+" Textobjects
 call CountJump#Motion#MakeBracketMotion( '<buffer>', 'b', 'B', '#{{{', '#}}}', 0 )
 call CountJump#Region#TextObject#Make( '<buffer>', 'o', 'i', 'V', '^#> [^}]', 1 )
 
@@ -31,7 +35,10 @@ endfunction
 
 call CountJump#TextObject#MakeWithJumpFunctions('<buffer>', 'b', 'ai', 'V', 'Jump_to_begin_codeblock', 'Jump_to_end_codeblock')
 
-nmap <C-M>b [b]Bo<CR>#{{{<CR><CR>#}}}<ESC>0k
+" Keyboard shortcuts
+nmap <C-N>b [b]Bo<CR>#{{{<CR><CR>#}}}<ESC>0k
+nmap <C-N>r k]Bkdiovib<Space>
+nmap <C-N>e <C-N>r]bj
 
 
 " Colors
