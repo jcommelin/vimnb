@@ -32,3 +32,14 @@ endfunction
 call CountJump#TextObject#MakeWithJumpFunctions('<buffer>', 'b', 'ai', 'V', 'Jump_to_begin_codeblock', 'Jump_to_end_codeblock')
 
 nmap <C-M>b [b]Bo<CR>#{{{<CR><CR>#}}}<ESC>0k
+
+
+" Colors
+if exists('##VimEnter')
+        autocmd VimEnter * call VimnbColors()
+endif
+
+function VimnbColors()
+	syn match vimnbOutput "#> .*"
+	hi vimnbOutput ctermfg=darkyellow
+endfunction
