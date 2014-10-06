@@ -39,6 +39,7 @@ call CountJump#TextObject#MakeWithJumpFunctions('<buffer>', 'b', 'ai', 'V', 'Jum
 nmap <C-N>b [b]Bo<CR>#{{{<CR><CR>#}}}<ESC>0k
 nmap <C-N>r k]Bkdiovib<Space>
 nmap <C-N>e <C-N>r]bj
+nmap <C-N>s O#}}}<CR><CR>#{{{<Esc>j
 
 
 " Colors
