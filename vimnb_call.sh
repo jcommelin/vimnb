@@ -8,7 +8,7 @@ INPUT_FILE_BASE=$(basename "${INPUT_FILE}")
 
 # Users may specify their prefered directory for temporary files
 if [ -z "$VIMNB_TMP_FILE_PATH" ]; then
-	VIMNB_TMP_FILE_PATH=/dev/shm/
+	VIMNB_TMP_FILE_PATH=/tmp/
 fi
 
 # Prefix for temporary files
